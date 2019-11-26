@@ -1,0 +1,16 @@
+server:
+    port: 9002
+management:
+    endpoints:
+        web:
+            #设置监控根路径
+            base-path: /actuator
+            exposure:
+                include: '*'
+                exclude: beans,metrics
+            path-mapping:
+                #修改mappings访问路径为urls
+                mappings: urls
+    endpoint:
+        health:
+            show-details: always
