@@ -1,0 +1,56 @@
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+server:
+    port: 8081
+
+dataSources:
+    ds0: !!com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ds_shop_0
+        username: root
+        password: root
+    ds1: !!com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ds_shop_1
+        username: root
+        password: root
+
+shardingRule:
+    tables:
+        t_order:
+            actualDataNodes: ds${0..1}.t_order${0..1}
+            databaseStrategy:
+                inline:
+                    shardingColumn: user_id
+                    algorithmExpression: ds${user_id % 2}
+            tableStrategy:
+                inline:
+                    shardingColumn: id
+                    algorithmExpression: t_order${id % 2}
+            keyGenerator:
+                type: SNOWFLAKE
+                column: order_id
+        t_order_detail:
+            actualDataNodes: ds${0..1}.t_order_detail${0..1}
+            databaseStrategy:
+                inline:
+                    shardingColumn: user_id
+                    algorithmExpression: ds${user_id % 2}
+            tableStrategy:
+                inline:
+                    shardingColumn: order_id
+                    algorithmExpression: t_order_detail${order_id % 2}
+    bindingTables:
+        - t_order,t_order_detail
+#    broadcastTables:
+#        - t_config
+
+    defaultDataSourceName: ds0
+    defaultTableStrategy:
+        none:
+    defaultKeyGenerator:
+        type: SNOWFLAKE
+        column: id
+
+props:
+    sql.show: true
