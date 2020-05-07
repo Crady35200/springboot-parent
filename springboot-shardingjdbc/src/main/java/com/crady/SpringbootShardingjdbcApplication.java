@@ -13,21 +13,11 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.crady.dao")
-public class SpringbootShardingjdbcApplication implements ApplicationContextAware {
+public class SpringbootShardingjdbcApplication{
 
     static ApplicationContext applicationContext;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringbootShardingjdbcApplication.class, args);
-        String[] names = applicationContext.getBeanDefinitionNames();
-        for(String name : names){
-            System.out.println(names);
-        }
-        System.out.println(applicationContext.getBean(DataSource.class));
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 }

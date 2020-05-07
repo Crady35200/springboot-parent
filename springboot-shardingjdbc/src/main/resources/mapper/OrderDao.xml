@@ -65,4 +65,10 @@
     truncate table t_order;
   </update>
 
+  <select id="queryAll" resultType="com.crady.vo.OrderVo">
+    select a.id,a.user_id,a.remark,b.id as detailId,b.remark as detailRemark
+    from t_order a
+    left join t_order_detail b on a.id = b.order_id
+  </select>
+
 </mapper>
