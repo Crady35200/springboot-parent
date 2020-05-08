@@ -66,9 +66,17 @@
   </update>
 
   <select id="queryAll" resultType="com.crady.vo.OrderVo">
-    select a.id,a.user_id,a.remark,b.id as detailId,b.remark as detailRemark
+    select a.id,a.user_id  as userId,a.remark,b.id as detailId,b.remark as detailRemark
     from t_order a
-    left join t_order_detail b on a.id = b.order_id
+    join t_order_detail b on a.id = b.order_id
   </select>
+
+  <select id="queryByRemark" parameterType="string" resultType="com.crady.vo.OrderVo">
+    select a.id,a.user_id as userId,a.remark,b.id as detailId,b.remark as detailRemark
+    from t_order a
+    join t_order_detail b on a.id = b.order_id
+    where a.remark=#{remark,jdbcType=VARCHAR}
+  </select>
+
 
 </mapper>

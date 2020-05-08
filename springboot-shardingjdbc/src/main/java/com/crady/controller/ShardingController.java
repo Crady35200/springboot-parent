@@ -3,6 +3,7 @@ package com.crady.controller;
 import com.crady.service.ShardService;
 import com.crady.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,12 @@ public class ShardingController {
     @RequestMapping("order")
     public List<OrderVo> all(){
         List<OrderVo> orderVos = shardService.queryAll();
+        return orderVos;
+    }
+
+    @RequestMapping("remark/{r}")
+    public List<OrderVo> remark(@PathVariable("r")String r){
+        List<OrderVo> orderVos = shardService.queryByRemark(r);
         return orderVos;
     }
 }

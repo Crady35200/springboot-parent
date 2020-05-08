@@ -2,6 +2,7 @@ package com.crady.dao;
 
 import com.crady.po.Order;
 import com.crady.vo.OrderVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface OrderDao {
     int truncateTable();
 
     List<OrderVo> queryAll();
+
+    List<OrderVo> queryByRemark(@Param("remark") String remark);
 }

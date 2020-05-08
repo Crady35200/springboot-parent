@@ -14,4 +14,6 @@ public interface ShardService {
     void insert();
     void truncate();
     List<OrderVo> queryAll();
+
+    List<OrderVo> queryByRemark(String remark);
 }

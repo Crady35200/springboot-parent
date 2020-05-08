@@ -54,4 +54,9 @@ public class ShardServiceImpl implements ShardService{
     public List<OrderVo> queryAll() {
         return orderDao.queryAll();
     }
+
+    @Override
+    public List<OrderVo> queryByRemark(String remark) {
+        return orderDao.queryByRemark(remark);
+    }
 }
